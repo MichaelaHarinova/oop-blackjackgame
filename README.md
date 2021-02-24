@@ -45,11 +45,11 @@
 
 ## Interface of Blackjack
 >#### Starting screen
->![Screenshot Layout](img/bj1.png)
+>![Screenshot Layout](img/b.png)
     
 >#### Final screen "You win!"
->![Screenshot Layout](img/bj2.png)
+>![Screenshot Layout](img/b3.png)
 
 >#### Final screen "You lost!"
->![Screenshot Layout](img/bj3.png)
+>![Screenshot Layout](img/b2.png)
 

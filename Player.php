@@ -21,15 +21,17 @@ class Player
         if ($this->getScore() > self::LIMIT_VALUE) {
             $this->lost = true;
         }
-
+     /*    if ($this->getScore() === self::LIMIT_VALUE){
+             $this->lost=false;
+}*/
     }
 
-    public function surrender()
+    public function surrender() :void
     {
         $this->lost = true;
     }
 
-    public function getScore()
+    public function getScore(): int
     {
         $totalScore = 0;
 
@@ -44,15 +46,26 @@ class Player
         return $this->lost;
     }
 
-    public function setLost($lost): bool
-    {
-            $this->lost=$lost;
-    }
+/*public function setLost(bool $lost) :void{
+        $this->lost=$lost;
+}*/
 
-
-    public function getCards()
+    public function getCards() :array
     {
         return $this->cards;
     }
+
+  /*  public function winOrLost(Dealer $dealer) :bool {
+        if(!$dealer->hasLost() && $this->getScore() > $dealer->getScore()){
+            $this->lost = false;
+        }else if ($dealer->hasLost()){
+            $this->lost =false;
+            $dealer->setLost(true);
+        }else{
+            $this->lost = true;
+            $dealer->setLost(false);
+        }
+        return !$this->lost;
+    }*/
 }
 

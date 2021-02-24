@@ -28,12 +28,20 @@ if (isset($_POST['action'])) {
             $_SESSION['blackjack']->getDealer()->hit($_SESSION['blackjack']->getDeck());
             if (!$_SESSION['blackjack']->getDealer()->hasLost() && $_SESSION['blackjack']->getPlayer()->getScore() > $_SESSION['blackjack']->getDealer()->getScore()) {
                 echo "You win!";
-            } else {
+                $disabled = "disabled";
+            } else if($_SESSION['blackjack']->getDealer()->hasLost()) {
+                echo "You win!";
+            }else{
                 echo "You lost!";
                 $disabled = "disabled";
             }
             break;
-        case "surrender/restart":
+        case "surrender":
+            $_SESSION['blackjack']->getPlayer()->surrender();
+            echo "You lost!";
+            $disabled = "disabled";
+            break;
+        case "restart":
             unset($_SESSION['blackjack']);
             $_SESSION['blackjack'] = new Blackjack();
             break;
@@ -62,20 +70,21 @@ if (isset($_POST['action'])) {
     echo "Your score is:  " . $_SESSION['blackjack']->getPlayer()->getScore();
     ?>
 </div>
+<!--displays dealers cards and score-->
 <div style="float:right; margin: 20px 0 0 20px; font-size: 30px; text-align: center">
     <?php
-  /*  foreach ($_SESSION['blackjack']->getDealer()->getCards() as $card) {
-        echo $card->getUnicodeCharacter(true);
-    }
-    echo '<br>';
-    echo "Dealer " . $_SESSION['blackjack']->getDealer()->getScore();*/
+  /*    foreach ($_SESSION['blackjack']->getDealer()->getCards() as $card) {
+          echo $card->getUnicodeCharacter(true);
+      }
+      echo '<br>';
+      echo "Dealer " . $_SESSION['blackjack']->getDealer()->getScore();
 
-
+*/
     ?>
 
 </div>
 <br>
-<div style="margin-top: 170px; margin-left: 450px ;display:block; position: fixed">
+<div style="margin-top: 170px; margin-left: 420px ;display:block; position: fixed">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
         <br>
         <button type="submit" <?php echo $disabled ?> value="hit" name="action"
@@ -86,8 +95,12 @@ if (isset($_POST['action'])) {
                 style="width:100px;height:30px; text-align: center; border-radius: 10px;10px;background-color:black;color:white">
             Stand
         </button>
-        <button type="submit" value="surrender/restart" name="action"
-                style="width:130px;height:30px; text-align: center; border-radius: 10px">Surrender/Restart
+        <button type="submit" <?php echo $disabled ?> value="surrender" name="action"
+                style="width:100px;height:30px; text-align: center; border-radius: 10px;10px;background-color:black;color:white">
+            Surrender
+        </button>
+        <button type="submit" value="restart" name="action"
+                style="width:130px;height:30px; text-align: center; border-radius: 10px">Restart
         </button>
     </form>
 
